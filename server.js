@@ -1,33 +1,16 @@
 const express = require('express');
-const { WebSocketServer } = require('ws');
+const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.static('public'));
+// Servir arquivos estáticos da pasta "public"
+app.use(express.static(path.join(__dirname, 'public')));
 
-const server = app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+// Rota principal para servir o index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-const wss = new WebSocketServer({ server });
-
-let clients = [];
-
-wss.on('connection', (ws) => {
-    clients.push(ws);
-    console.log('Client connected');
-
-    ws.on('message', (message) => {
-        // Envia a mensagem recebida para todos os outros clientes conectados
-        clients.forEach(client => {
-            if (client !== ws && client.readyState === WebSocket.OPEN) {
-                client.send(message);
-            }
-        });
-    });
-
-    ws.on('close', () => {
-        clients = clients.filter(client => client !== ws);
-        console.log('Client disconnected');
-    });
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
 });

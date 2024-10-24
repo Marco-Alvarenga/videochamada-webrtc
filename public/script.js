@@ -1,7 +1,7 @@
 let localStream;
 let remoteStream;
 let peerConnection;
-const socket = new WebSocket('wss://videochamada-webrtc.vercel.app'); // Insira a URL correta do WebSocket
+const socket = new WebSocket('wss://websocket-86o9.onrender.com'); // Insira a URL correta do WebSocket
 
 const servers = {
     iceServers: [
