@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Videochamada WebRTC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Video Conference</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Videochamada</h1>
-  <video id="localVideo" autoplay muted></video>
-  <video id="remoteVideo" autoplay></video>
+    <div id="main-container">
+        <div id="video-container">
+            <video id="video-remote" autoplay playsinline></video>
+            <video id="video-local" autoplay muted playsinline></video>
+        </div>
+        <div id="share-container">
+            <h2>Screen Sharing Area</h2>
+            <div class="control-buttons">
+                <button id="start-call">Start Call</button>
+                <button id="end-call">End Call</button>
+                <button id="share-screen">Share Screen</button>
+                <button id="schedule-call">Schedule</button>
+            </div>
+            <div id="submenu" class="submenu">
+                <button id="share-text">Share Text</button>
+                <button id="share-games">Share Games</button>
+                <button id="share-window">Share Window</button>
+            </div>
+        </div>
+    </div>
 
-  <script>
-    // Código WebRTC básico para capturar vídeo local
-    const localVideo = document.getElementById('localVideo');
-    const remoteVideo = document.getElementById('remoteVideo');
-
-    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-      .then((stream) => {
-        localVideo.srcObject = stream;
-      })
-      .catch((error) => {
-        console.error('Erro ao acessar a câmera: ', error);
-      });
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>

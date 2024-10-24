@@ -1,0 +1,63 @@
+html, body, #main-container {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+#video-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#video-remote, #video-local {
+    flex: 1;
+    margin: 10px;
+    background-color: #000;
+    color: #fff;
+    object-fit: cover;
+}
+
+#share-container {
+    width: 50%;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-buttons {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.control-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+@media only screen and (max-width: 768px) {
+    #video-container, #share-container {
+        width: 100%;
+    }
+    #video-container {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    #video-remote, #video-local {
+        width: 45%;
+    }
+}
