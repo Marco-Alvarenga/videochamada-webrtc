@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Videochamada WebRTC</title>
+</head>
+<body>
+  <h1>Videochamada</h1>
+  <video id="localVideo" autoplay muted></video>
+  <video id="remoteVideo" autoplay></video>
+
+  <script>
+    // Código WebRTC básico para capturar vídeo local
+    const localVideo = document.getElementById('localVideo');
+    const remoteVideo = document.getElementById('remoteVideo');
+
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+      .then((stream) => {
+        localVideo.srcObject = stream;
+      })
+      .catch((error) => {
+        console.error('Erro ao acessar a câmera: ', error);
+      });
+  </script>
+</body>
+</html>
