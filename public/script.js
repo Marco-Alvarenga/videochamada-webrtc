@@ -14,21 +14,26 @@ const remoteVideo = document.getElementById('video-remote');
 const startCallButton = document.getElementById('start-call');
 const endCallButton = document.getElementById('end-call');
 
+// Tratamento de mensagens recebidas do WebSocket
 socket.onmessage = async (message) => {
-    const data = JSON.parse(message.data);
+    try {
+        const data = JSON.parse(message.data); // Tente fazer o parse da mensagem
 
-    if (data.type === 'offer') {
-        await peerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
-        const answer = await peerConnection.createAnswer();
-        await peerConnection.setLocalDescription(answer);
+        if (data.type === 'offer') {
+            await peerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
+            const answer = await peerConnection.createAnswer();
+            await peerConnection.setLocalDescription(answer);
 
-        socket.send(JSON.stringify({ type: 'answer', answer }));
-    } else if (data.type === 'answer') {
-        await peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
-    } else if (data.type === 'ice-candidate') {
-        if (data.candidate) {
-            await peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate));
+            socket.send(JSON.stringify({ type: 'answer', answer }));
+        } else if (data.type === 'answer') {
+            await peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
+        } else if (data.type === 'ice-candidate') {
+            if (data.candidate) {
+                await peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate));
+            }
         }
+    } catch (error) {
+        console.error("Erro ao processar mensagem do WebSocket: ", error);
     }
 };
 
